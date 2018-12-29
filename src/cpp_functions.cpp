@@ -30,7 +30,7 @@ arma::vec Mahalanobis(arma::mat x, arma::rowvec center, arma::mat covprec, bool 
 }
 
 // [[Rcpp::export(".dmnorm_C")]]
-arma::vec dmnorm(arma::vec x,  arma::rowvec mu,  arma::mat covprec, bool is_prec, bool unnorm = false, bool log = false) {
+arma::vec dmnorm(arma::mat x,  arma::rowvec mu,  arma::mat covprec, bool is_prec, bool unnorm = false, bool log = false) {
   arma::vec distval = Mahalanobis(x,  mu, covprec, is_prec);
   double logdet;
   double log2pi;

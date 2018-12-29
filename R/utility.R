@@ -185,9 +185,9 @@ Mahalanobis <- function(x, center, cov, prec){
     x <- matrix(x, nrow = 1)
   }
   if(missing(prec)) {
-    return(.Mahalanobis_C(x, center, cov, FALSE))
+    return(as.numeric(.Mahalanobis_C(x, center, cov, FALSE)))
   } else if(missing(cov)) {
-    return(.Mahalanobis_C(x, center, prec, TRUE))
+    return(as.numeric(.Mahalanobis_C(x, center, prec, TRUE)))
   }
   stop("Provide either Precision or Covariance, but not both")
 }

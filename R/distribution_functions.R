@@ -47,9 +47,9 @@ dmnorm <- function(x, mu, cov, prec, unnorm = FALSE, log = FALSE) {
     x <- matrix(x, nrow = 1)
   }
   if (missing(prec)) {
-    return(.dmnorm_C(x, mu, cov, FALSE, unnorm, log))
+    return(as.numeric(.dmnorm_C(x, mu, cov, FALSE, unnorm, log)))
   } else if (missing(cov)) {
-    out <- return(.dmnorm_C(x, mu, prec, TRUE, unnorm, log))
+    out <- return(as.numeric(.dmnorm_C(x, mu, prec, TRUE, unnorm, log)))
   } else {
     stop("Provide either cov or prec, but not both")
   }
@@ -70,9 +70,9 @@ dmnorm <- function(x, mu, cov, prec, unnorm = FALSE, log = FALSE) {
 
 rmnorm <- function(mu, cov, prec) {
   if(missing(prec)) {
-    return(.rmnorm_C(rnorm(length(mu)), mu, cov, FALSE))
+    return(as.numeric(.rmnorm_C(rnorm(length(mu)), mu, cov, FALSE)))
   } else if(missing(cov)) {
-    return(.rmnorm_C(rnorm(length(mu)), mu, prec, TRUE))
+    return(as.numeric(.rmnorm_C(rnorm(length(mu)), mu, prec, TRUE)))
   }
   stop("Provide either Precision or Covariance, but not both")
 }

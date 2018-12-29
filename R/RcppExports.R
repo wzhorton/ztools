@@ -13,3 +13,7 @@
     .Call('_ztools_dmnorm', PACKAGE = 'ztools', x, mu, covprec, is_prec, unnorm, log)
 }
 
+.rmnorm_C <- function(z, mu, covprec, is_prec) {
+    .Call('_ztools_rmnorm', PACKAGE = 'ztools', z, mu, covprec, is_prec)
+}
+

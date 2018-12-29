@@ -33,12 +33,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // dmnorm
-arma::vec dmnorm(arma::vec x, arma::rowvec mu, arma::mat covprec, bool is_prec, bool unnorm, bool log);
+arma::vec dmnorm(arma::mat x, arma::rowvec mu, arma::mat covprec, bool is_prec, bool unnorm, bool log);
 RcppExport SEXP _ztools_dmnorm(SEXP xSEXP, SEXP muSEXP, SEXP covprecSEXP, SEXP is_precSEXP, SEXP unnormSEXP, SEXP logSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type x(xSEXP);
     Rcpp::traits::input_parameter< arma::rowvec >::type mu(muSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type covprec(covprecSEXP);
     Rcpp::traits::input_parameter< bool >::type is_prec(is_precSEXP);
@@ -48,11 +48,26 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rmnorm
+arma::vec rmnorm(arma::vec z, arma::vec mu, arma::mat covprec, bool is_prec);
+RcppExport SEXP _ztools_rmnorm(SEXP zSEXP, SEXP muSEXP, SEXP covprecSEXP, SEXP is_precSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type z(zSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type covprec(covprecSEXP);
+    Rcpp::traits::input_parameter< bool >::type is_prec(is_precSEXP);
+    rcpp_result_gen = Rcpp::wrap(rmnorm(z, mu, covprec, is_prec));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ztools_det_sympd", (DL_FUNC) &_ztools_det_sympd, 2},
     {"_ztools_Mahalanobis", (DL_FUNC) &_ztools_Mahalanobis, 4},
     {"_ztools_dmnorm", (DL_FUNC) &_ztools_dmnorm, 6},
+    {"_ztools_rmnorm", (DL_FUNC) &_ztools_rmnorm, 4},
     {NULL, NULL, 0}
 };
 

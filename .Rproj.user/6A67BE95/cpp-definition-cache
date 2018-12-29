@@ -24,9 +24,9 @@
                 "file" : "/Users/zach/Sigma/Research/Packages/ztools/src/cpp_functions.cpp",
                 "kind" : 6,
                 "line" : 33,
-                "name" : "dmnorm(arma::vec, arma::rowvec, arma::mat, bool, bool, bool)",
+                "name" : "dmnorm(arma::mat, arma::rowvec, arma::mat, bool, bool, bool)",
                 "parent_name" : "",
-                "usr" : "c:@F@dmnorm#$@N@arma@C@Col>#d#$@N@arma@C@Row>#d#$@N@arma@C@Mat>#d#b#b#b#"
+                "usr" : "c:@F@dmnorm#$@N@arma@C@Mat>#d#$@N@arma@C@Row>#d#S0_#b#b#b#"
             },
             {
                 "column" : 11,
@@ -39,6 +39,6 @@
             }
         ],
         "file" : "/Users/zach/Sigma/Research/Packages/ztools/src/cpp_functions.cpp",
-        "file_last_write" : 1546055930
+        "file_last_write" : 1546116471
     }
 ]
