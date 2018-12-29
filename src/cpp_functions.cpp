@@ -3,7 +3,18 @@ using namespace Rcpp;
 
 // [[Rcpp::depends(RcppArmadillo)]]
 
-// [[Rcpp::export]]
+// [[Rcpp::export(".det_sympd_C")]] 
+double det_sympd (arma::mat x, bool Log = false) {
+  arma::mat cholx = chol(x);
+  arma::vec y = log(cholx.diag());
+  if( Log ) {
+    return 2 * sum(y);
+  } else {
+    return exp(2 * sum(y));
+  }
+}
+
+// [[Rcpp::export(".Mahalanobis_C")]]
 arma::vec Mahalanobis(arma::mat x, arma::rowvec center, arma::mat covprec, bool is_prec){
   int n = x.n_rows;
   arma::mat x_cen;
@@ -18,8 +29,8 @@ arma::vec Mahalanobis(arma::mat x, arma::rowvec center, arma::mat covprec, bool 
   }
 }
 
-// [[Rcpp::export]]
-arma::vec dmnorm(arma::mat x,  arma::rowvec mu,  arma::mat covprec, bool is_prec, bool unnorm = false, bool log = false) {
+// [[Rcpp::export(.dmnorm_C)]]
+arma::vec dmnorm(arma::vec x,  arma::rowvec mu,  arma::mat covprec, bool is_prec, bool unnorm = false, bool log = false) {
   arma::vec distval = Mahalanobis(x,  mu, covprec, is_prec);
   double logdet;
   double log2pi;
@@ -27,13 +38,13 @@ arma::vec dmnorm(arma::mat x,  arma::rowvec mu,  arma::mat covprec, bool is_prec
     logdet = 0;
     log2pi = 0;
   } else {
-    logdet = sum(arma::log(arma::eig_sym(covprec)));
+    logdet = det_sympd(covprec, true);
     log2pi = std::log(2.0 * M_PI);
   }
   if (is_prec) {
     logdet = -1*logdet;
   }
-  arma::vec logretval = -( (x.n_cols * log2pi + logdet + distval)/2 );
+  arma::vec logretval = -((x.n_cols * log2pi + logdet + distval)/2);
   
   if (log) {
     return(logretval);

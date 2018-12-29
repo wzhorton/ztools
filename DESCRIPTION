@@ -9,7 +9,7 @@ Description: A collection of tools that I have found useful in my practice.
     Among them are conjugate update functions for Bayesian analysis and speed 
     optimized versions of multivariate functions.
 License: GPL-3
-Imports: Rcpp (>= 1.0.0),  Rcpp (>= 0.12.18), fields (>= 9.6), Matrix (>= 1.2-13)
+Imports: Rcpp (>= 1.0.0), fields (>= 9.6), Matrix (>= 1.2-13)
 Depends: R (>= 3.4.0)
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.1.1
