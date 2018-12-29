@@ -52,3 +52,12 @@ arma::vec dmnorm(arma::vec x,  arma::rowvec mu,  arma::mat covprec, bool is_prec
     return(exp(logretval));
   }
 }
+
+// [[Rcpp::export(.rmnorm_C)]]
+arma::vec rmnorm(arma::vec z, arma::vec mu, arma::mat covprec, bool is_prec) {
+  if (is_prec) {
+    return mu + solve(chol(covprec), z);
+  } else {
+    return mu + chol(covprec).t() * z;
+  }
+}
