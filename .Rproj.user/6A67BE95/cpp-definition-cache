@@ -27,9 +27,18 @@
                 "name" : "dmnorm(arma::vec, arma::rowvec, arma::mat, bool, bool, bool)",
                 "parent_name" : "",
                 "usr" : "c:@F@dmnorm#$@N@arma@C@Col>#d#$@N@arma@C@Row>#d#$@N@arma@C@Mat>#d#b#b#b#"
+            },
+            {
+                "column" : 11,
+                "file" : "/Users/zach/Sigma/Research/Packages/ztools/src/cpp_functions.cpp",
+                "kind" : 6,
+                "line" : 57,
+                "name" : "rmnorm(arma::vec, arma::vec, arma::mat, bool)",
+                "parent_name" : "",
+                "usr" : "c:@F@rmnorm#$@N@arma@C@Col>#d#S0_#$@N@arma@C@Mat>#d#b#"
             }
         ],
         "file" : "/Users/zach/Sigma/Research/Packages/ztools/src/cpp_functions.cpp",
-        "file_last_write" : 1545948088
+        "file_last_write" : 1546055930
     }
 ]
