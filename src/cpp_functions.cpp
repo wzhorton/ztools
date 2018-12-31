@@ -61,3 +61,25 @@ arma::vec rmnorm(arma::vec z, arma::vec mu, arma::mat covprec, bool is_prec) {
     return mu + chol(covprec).t() * z;
   }
 }
+
+// [[Rcpp::export(".update_nn_C")]]
+arma::vec update_nn(arma::vec z, arma::vec y, arma::mat X, arma::vec mu, arma::mat Sig, bool inv_Sig, arma::mat V, bool inv_V){
+  if (!inv_Sig) {
+    Sig = inv_sympd(Sig);
+  }
+  if (!inv_V) {
+    V = inv_sympd(V);
+  }
+  arma::mat vv = X.t() * Sig * X + V; //This could be faster
+  return rmnorm(z, solve(vv, (X.t() * (Sig * y) + V * mu)), vv, true);
+}
+
+// [[Rcpp::export(".update_gp_mean_C")]]
+arma::vec update_gp_mean(arma::vec y, arma::vec mu1, arma::vec mu2, arma::mat R12, arma::mat R22){
+  return mu1 + R12 * solve(R22, y - mu2); //This could be faster
+}
+
+// [[Rcpp::export(".update_gp_var_C")]]
+arma::mat update_gp_var(arma::mat R11, arma::mat R12, arma::mat R22){
+  return R11 - R12 * solve(R22, R12.t());
+}

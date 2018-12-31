@@ -17,3 +17,15 @@
     .Call('_ztools_rmnorm', PACKAGE = 'ztools', z, mu, covprec, is_prec)
 }
 
+.update_nn_C <- function(z, y, X, mu, Sig, inv_Sig, V, inv_V) {
+    .Call('_ztools_update_nn', PACKAGE = 'ztools', z, y, X, mu, Sig, inv_Sig, V, inv_V)
+}
+
+.update_gp_mean_C <- function(y, mu1, mu2, R12, R22) {
+    .Call('_ztools_update_gp_mean', PACKAGE = 'ztools', y, mu1, mu2, R12, R22)
+}
+
+.update_gp_var_C <- function(R11, R12, R22) {
+    .Call('_ztools_update_gp_var', PACKAGE = 'ztools', R11, R12, R22)
+}
+

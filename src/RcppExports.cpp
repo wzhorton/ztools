@@ -62,12 +62,61 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// update_nn
+arma::vec update_nn(arma::vec z, arma::vec y, arma::mat X, arma::vec mu, arma::mat Sig, bool inv_Sig, arma::mat V, bool inv_V);
+RcppExport SEXP _ztools_update_nn(SEXP zSEXP, SEXP ySEXP, SEXP XSEXP, SEXP muSEXP, SEXP SigSEXP, SEXP inv_SigSEXP, SEXP VSEXP, SEXP inv_VSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type z(zSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type Sig(SigSEXP);
+    Rcpp::traits::input_parameter< bool >::type inv_Sig(inv_SigSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type V(VSEXP);
+    Rcpp::traits::input_parameter< bool >::type inv_V(inv_VSEXP);
+    rcpp_result_gen = Rcpp::wrap(update_nn(z, y, X, mu, Sig, inv_Sig, V, inv_V));
+    return rcpp_result_gen;
+END_RCPP
+}
+// update_gp_mean
+arma::vec update_gp_mean(arma::vec y, arma::vec mu1, arma::vec mu2, arma::mat R12, arma::mat R22);
+RcppExport SEXP _ztools_update_gp_mean(SEXP ySEXP, SEXP mu1SEXP, SEXP mu2SEXP, SEXP R12SEXP, SEXP R22SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type mu1(mu1SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type mu2(mu2SEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type R12(R12SEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type R22(R22SEXP);
+    rcpp_result_gen = Rcpp::wrap(update_gp_mean(y, mu1, mu2, R12, R22));
+    return rcpp_result_gen;
+END_RCPP
+}
+// update_gp_var
+arma::mat update_gp_var(arma::mat R11, arma::mat R12, arma::mat R22);
+RcppExport SEXP _ztools_update_gp_var(SEXP R11SEXP, SEXP R12SEXP, SEXP R22SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type R11(R11SEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type R12(R12SEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type R22(R22SEXP);
+    rcpp_result_gen = Rcpp::wrap(update_gp_var(R11, R12, R22));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ztools_det_sympd", (DL_FUNC) &_ztools_det_sympd, 2},
     {"_ztools_Mahalanobis", (DL_FUNC) &_ztools_Mahalanobis, 4},
     {"_ztools_dmnorm", (DL_FUNC) &_ztools_dmnorm, 6},
     {"_ztools_rmnorm", (DL_FUNC) &_ztools_rmnorm, 4},
+    {"_ztools_update_nn", (DL_FUNC) &_ztools_update_nn, 8},
+    {"_ztools_update_gp_mean", (DL_FUNC) &_ztools_update_gp_mean, 5},
+    {"_ztools_update_gp_var", (DL_FUNC) &_ztools_update_gp_var, 3},
     {NULL, NULL, 0}
 };
 
