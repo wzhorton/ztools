@@ -50,7 +50,7 @@
                 "column" : 11,
                 "file" : "/Users/zach/Sigma/Research/Packages/ztools/src/cpp_functions.cpp",
                 "kind" : 6,
-                "line" : 78,
+                "line" : 82,
                 "name" : "update_gp_mean(arma::vec, arma::vec, arma::vec, arma::mat, arma::mat)",
                 "parent_name" : "",
                 "usr" : "c:@F@update_gp_mean#$@N@arma@C@Col>#d#S0_#S0_#$@N@arma@C@Mat>#d#S1_#"
@@ -59,13 +59,13 @@
                 "column" : 11,
                 "file" : "/Users/zach/Sigma/Research/Packages/ztools/src/cpp_functions.cpp",
                 "kind" : 6,
-                "line" : 83,
+                "line" : 87,
                 "name" : "update_gp_var(arma::mat, arma::mat, arma::mat)",
                 "parent_name" : "",
                 "usr" : "c:@F@update_gp_var#$@N@arma@C@Mat>#d#S0_#S0_#"
             }
         ],
         "file" : "/Users/zach/Sigma/Research/Packages/ztools/src/cpp_functions.cpp",
-        "file_last_write" : 1546272152
+        "file_last_write" : 1546304310
     }
 ]
