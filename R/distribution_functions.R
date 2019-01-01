@@ -42,14 +42,14 @@ dinvgamma <- function(x, shape, rate, scale = 1 / rate, log = FALSE) {
 #' @param log logical; if TRUE, density calculations are computed on the log scale.
 #' @export
 
-dmnorm <- function(x, mu, cov, prec, unnorm = FALSE, log = FALSE) {
-  if(is.vector(x)){
-    x <- matrix(x, nrow = 1)
+dmnorm <- function(y, mu, cov, prec, unnorm = FALSE, log = FALSE) {
+  if(is.vector(y)){
+    x <- matrix(y, nrow = 1)
   }
   if (missing(prec)) {
-    return(as.numeric(.dmnorm_C(x, mu, cov, FALSE, unnorm, log)))
+    return(as.numeric(.dmnorm_C(y, mu, cov, FALSE, unnorm, log)))
   } else if (missing(cov)) {
-    out <- return(as.numeric(.dmnorm_C(x, mu, prec, TRUE, unnorm, log)))
+    out <- return(as.numeric(.dmnorm_C(y, mu, prec, TRUE, unnorm, log)))
   } else {
     stop("Provide either cov or prec, but not both")
   }

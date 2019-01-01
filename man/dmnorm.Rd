@@ -4,11 +4,9 @@
 \alias{dmnorm}
 \title{Multivariate Normal Density Function}
 \usage{
-dmnorm(x, mu, cov, prec, unnorm = FALSE, log = FALSE)
+dmnorm(y, mu, cov, prec, unnorm = FALSE, log = FALSE)
 }
 \arguments{
-\item{x}{vector or matrix of values. Multiple observations should correspond to rows.}
-
 \item{mu}{mean vector.}
 
 \item{cov, prec}{covariance or precision matrix. Only specify one.}
@@ -16,6 +14,8 @@ dmnorm(x, mu, cov, prec, unnorm = FALSE, log = FALSE)
 \item{unnorm}{logical; TRUE ommits all terms not affected by x.}
 
 \item{log}{logical; if TRUE, density calculations are computed on the log scale.}
+
+\item{x}{vector or matrix of values. Multiple observations should correspond to rows.}
 }
 \description{
 Computes the (log) density of the multivariate normal distribution
