@@ -17,9 +17,9 @@
 
 update_normal_invgamma <- function(y, a, b, mu, R, R_inv) {
   if(missing(R)){
-    qf <- Mahalanobis(y, mu, prec = R_inv)
+    qf <- Mahalanobis(y, mu, prec = as.matrix(R_inv))
   } else if(missing(R_inv)) {
-    qf <- Mahalanobis(y, mu, cov = R)
+    qf <- Mahalanobis(y, mu, cov = as.matrix(R))
   } else {
     stop("Provide either R or R_inv, but not both")
   }
@@ -45,17 +45,17 @@ update_normal_normal <- function(y, X, mu, Sig, V, Sig_inv, V_inv) {
   z <- rnorm(ncol(X))
   if(missing(Sig_inv)){
     if(missing(V_inv)){
-      return(as.numeric(.update_nn_C(z, y, X, mu, Sig, FALSE, V, FALSE)))
+      return(as.numeric(.update_nn_C(z, y, X, mu, as.matrix(Sig), FALSE, as.matrix(V), FALSE)))
     } else if(missing(V)){
-      return(as.numeric(.update_nn_C(z, y, X, mu, Sig, FALSE, V_inv, TRUE)))
+      return(as.numeric(.update_nn_C(z, y, X, mu, as.matrix(Sig), FALSE, as.matrix(V_inv), TRUE)))
     } else {
       stop("Provide either V or V_inv, but not both")
     }
   } else if(missing(Sig)){
     if(missing(V_inv)){
-      return(as.numeric(.update_nn_C(z, y, X, mu, Sig_inv, TRUE, V, FALSE)))
+      return(as.numeric(.update_nn_C(z, y, X, mu, as.matrix(Sig_inv), TRUE, as.matrix(V), FALSE)))
     } else if(missing(V)){
-      return(as.numeric(.update_nn_C(z, y, X, mu, Sig_inv, TRUE, V_inv, TRUE)))
+      return(as.numeric(.update_nn_C(z, y, X, mu, as.matrix(Sig_inv), TRUE, as.matrix(V_inv), TRUE)))
     } else {
       stop("Provide either V or V_inv, but not both")
     }
