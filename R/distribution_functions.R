@@ -44,12 +44,12 @@ dinvgamma <- function(x, shape, rate, scale = 1 / rate, log = FALSE) {
 
 dmnorm <- function(y, mu, cov, prec, unnorm = FALSE, log = FALSE) {
   if(is.vector(y)){
-    x <- matrix(y, nrow = 1)
+    y <- matrix(y, nrow = 1)
   }
   if (missing(prec)) {
-    return(as.numeric(.dmnorm_C(y, mu, cov, FALSE, unnorm, log)))
+    return(as.numeric(.dmnorm_C(y, mu, as.matrix(cov), FALSE, unnorm, log)))
   } else if (missing(cov)) {
-    out <- return(as.numeric(.dmnorm_C(y, mu, prec, TRUE, unnorm, log)))
+    out <- return(as.numeric(.dmnorm_C(y, mu, as.matrix(prec), TRUE, unnorm, log)))
   } else {
     stop("Provide either cov or prec, but not both")
   }
@@ -70,9 +70,9 @@ dmnorm <- function(y, mu, cov, prec, unnorm = FALSE, log = FALSE) {
 
 rmnorm <- function(mu, cov, prec) {
   if(missing(prec)) {
-    return(as.numeric(.rmnorm_C(rnorm(length(mu)), mu, cov, FALSE)))
+    return(as.numeric(.rmnorm_C(rnorm(length(mu)), mu, as.matrix(cov), FALSE)))
   } else if(missing(cov)) {
-    return(as.numeric(.rmnorm_C(rnorm(length(mu)), mu, prec, TRUE)))
+    return(as.numeric(.rmnorm_C(rnorm(length(mu)), mu, as.matrix(prec), TRUE)))
   }
   stop("Provide either Precision or Covariance, but not both")
 }
