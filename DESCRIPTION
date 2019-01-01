@@ -1,7 +1,7 @@
 Package: ztools
 Type: Package
 Title: Tools by wzhorton
-Version: 0.3.0
+Version: 1.0.0
 Date: 2018-12-27
 Author: Zach Horton
 Maintainer: Same <yourfault@somewhere.net>
