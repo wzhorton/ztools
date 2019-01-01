@@ -64,19 +64,23 @@ arma::vec rmnorm(arma::vec z, arma::vec mu, arma::mat covprec, bool is_prec) {
 
 // [[Rcpp::export(".update_nn_C")]]
 arma::vec update_nn(arma::vec z, arma::vec y, arma::mat X, arma::vec mu, arma::mat Sig, bool inv_Sig, arma::mat V, bool inv_V){
-  if (!inv_Sig) {
-    Sig = inv_sympd(Sig);
-  }
   if (!inv_V) {
     V = inv_sympd(V);
   }
-  arma::mat vv = X.t() * Sig * X + V; //This could be faster
-  return rmnorm(z, solve(vv, (X.t() * (Sig * y) + V * mu)), vv, true);
+  
+  if (!inv_Sig) {
+    //Sig = inv_sympd(Sig);
+    arma::mat vv = X.t() * solve(Sig, X) + V; 
+    return rmnorm(z, solve(vv, (X.t() * solve(Sig, y) + V * mu)), vv, true);
+  } else {
+    arma::mat vv = X.t() * Sig * X + V; 
+    return rmnorm(z, solve(vv, (X.t() * Sig * y + V * mu)), vv, true);
+  }
 }
 
 // [[Rcpp::export(".update_gp_mean_C")]]
 arma::vec update_gp_mean(arma::vec y, arma::vec mu1, arma::vec mu2, arma::mat R12, arma::mat R22){
-  return mu1 + R12 * solve(R22, y - mu2); //This could be faster
+  return mu1 + R12 * solve(R22, y - mu2); //This seems slow, but it is fastest.
 }
 
 // [[Rcpp::export(".update_gp_var_C")]]
