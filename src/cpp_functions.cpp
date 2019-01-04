@@ -173,18 +173,18 @@ arma::vec evenk(arma::vec u){
 // [[Rcpp::export(".bs_even_C")]]
 arma::mat bs_even(arma::vec time, int nk){
   arma::vec u;
-  double dnk = nk * 1.0;
+  double dnk = nk - 1.0;
   u = dnk / time.max() * (time - time.min());
-  int nbasis = nk + 3;
+  int nbasis = nk + 2;
   int ni = nk - 2;
-  int neven_basis = ni - 1;
+  int neven_basis = ni - 2;
   arma::mat out(time.n_elem, nbasis);
   out.col(0) = rep4k(u);
   out.col(1) = rep3k(u);
   out.col(2) = rep2k(u);
-  out.col(nbasis - 1) = rep4k(4 + neven_basis - 1 - u);
-  out.col(nbasis - 2) = rep3k(4 + neven_basis - 1 - u);
-  out.col(nbasis - 3) = rep2k(4 + neven_basis - 1 - u);
+  out.col(nbasis - 1) = rep4k(3 + neven_basis - u);
+  out.col(nbasis - 2) = rep3k(3 + neven_basis - u);
+  out.col(nbasis - 3) = rep2k(3 + neven_basis - u);
   for(int i=0; i < neven_basis; i++){
     out.col(3 + i) = evenk(u - i);
   }
