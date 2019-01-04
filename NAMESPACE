@@ -2,6 +2,7 @@
 
 export(Mahalanobis)
 export(acc_rate)
+export(cbs)
 export(det_sympd)
 export(dinvgamma)
 export(dmnorm)

@@ -191,3 +191,17 @@ Mahalanobis <- function(x, center, cov, prec){
   }
   stop("Provide either Precision or Covariance, but not both")
 }
+
+#' Cubic B-spline with evenly spaced knots
+#' 
+#' Evaluates the B-spline expansion at a point or vector of points. These restrictions can take 
+#' advantage of polynomial expressions that are much faster to compute.
+#' 
+#' @param x a vector of evaluation points.
+#' @param n_int_knots the number of internal knots.
+#' @export
+
+cbs <- function(x, n_int_knots){
+  if(n_int_knots < 3) stop("Must have at least 3 internal knots")
+  return(.bs_even_C(x, n_int_knots + 2))
+}

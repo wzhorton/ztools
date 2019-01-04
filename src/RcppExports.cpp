@@ -108,6 +108,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// bs_even
+arma::mat bs_even(arma::vec time, int nk);
+RcppExport SEXP _ztools_bs_even(SEXP timeSEXP, SEXP nkSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type time(timeSEXP);
+    Rcpp::traits::input_parameter< int >::type nk(nkSEXP);
+    rcpp_result_gen = Rcpp::wrap(bs_even(time, nk));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ztools_det_sympd", (DL_FUNC) &_ztools_det_sympd, 2},
@@ -117,6 +129,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ztools_update_nn", (DL_FUNC) &_ztools_update_nn, 8},
     {"_ztools_update_gp_mean", (DL_FUNC) &_ztools_update_gp_mean, 5},
     {"_ztools_update_gp_var", (DL_FUNC) &_ztools_update_gp_var, 3},
+    {"_ztools_bs_even", (DL_FUNC) &_ztools_bs_even, 2},
     {NULL, NULL, 0}
 };
 

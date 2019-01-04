@@ -87,3 +87,107 @@ arma::vec update_gp_mean(arma::vec y, arma::vec mu1, arma::vec mu2, arma::mat R1
 arma::mat update_gp_var(arma::mat R11, arma::mat R12, arma::mat R22){
   return R11 - R12 * solve(R22, R12.t());
 }
+
+arma::vec rep4k(arma::vec u){
+  int n = u.n_elem;
+  double tmp3;
+  double ui;
+  arma::vec out(n);
+  for(int i=0; i<n; i++){
+    ui = u(i);
+    if(ui > 1.0){
+      out(i) = 0.0;
+    } else if(ui >= 0.0){
+      tmp3 = 1.0 - ui;
+      out(i) = tmp3*tmp3*tmp3;
+    } else {
+      out(i) = 0.0;
+    }
+  }
+  return out;
+}
+
+arma::vec rep3k(arma::vec u){
+  int n = u.n_elem;
+  double ui;
+  arma::vec out(n);
+  for(int i=0; i<n; i++){
+    ui = u(i);
+    if(ui > 2.0){
+      out(i) = 0.0;
+    } else if(ui > 1.0){
+      out(i) = 2.0 - 3.0*ui + 3.0/2.0*ui*ui - 1.0/4.0*ui*ui*ui;
+    } else if(ui > 0.0){
+      out(i) = 3.0*ui - 9.0/2.0*ui*ui + 7.0/4.0*ui*ui*ui;
+    } else {
+      out(i) = 0.0;
+    }
+  }
+  return out;
+}
+
+arma::vec rep2k(arma::vec u){
+  int n = u.n_elem;
+  double ui;
+  arma::vec out(n);
+  for(int i=0; i<n; i++){
+    ui = u(i);
+    if(ui > 3.0){
+      out(i) = 0.0;
+    } else if(ui > 2.0){
+      out(i) = 9.0/2.0 - 9.0/2.0*ui + 3.0/2.0*ui*ui - 1.0/6.0*ui*ui*ui;
+    } else if(ui > 1.0){
+      out(i) = -3.0/2.0 + 9.0/2.0*ui - 3.0*ui*ui + 7.0/12.0*ui*ui*ui;
+    } else if(ui > 0.0){
+      out(i) = 3.0/2.0*ui*ui - 11.0/12.0*ui*ui*ui;
+    } else {
+      out(i) = 0.0;
+    }
+  }
+  return out;
+}
+
+arma::vec evenk(arma::vec u){
+  int n = u.n_elem;
+  double ui;
+  arma::vec out(n);
+  for(int i=0; i<n; i++){
+    ui = u(i);
+    if(ui > 4.0){
+      out(i) = 0.0;
+    } else if(ui > 3.0){
+      out(i) = -1.0/6.0 * (ui-4)*(ui-4)*(ui-4);
+    } else if(ui > 2.0){
+      out(i) = -22.0/3.0 + 10.0*ui - 4.0*ui*ui + 1.0/2.0*ui*ui*ui;
+    } else if(ui > 1.0){
+      out(i) = 2.0/3.0 - 2.0*ui + 2.0*ui*ui - 1.0/2.0*ui*ui*ui;
+    } else if(ui > 0.0){
+      out(i) = 1.0/6.0*ui*ui*ui;
+    } else {
+      out(i) = 0.0;
+    }
+  }
+  return out;
+}
+
+// [[Rcpp::export(".bs_even_C")]]
+arma::mat bs_even(arma::vec time, int nk){
+  arma::vec u;
+  double dnk = nk * 1.0;
+  u = dnk / time.max() * (time - time.min());
+  int nbasis = nk + 3;
+  int ni = nk - 2;
+  int neven_basis = ni - 1;
+  arma::mat out(time.n_elem, nbasis);
+  out.col(0) = rep4k(u);
+  out.col(1) = rep3k(u);
+  out.col(2) = rep2k(u);
+  out.col(nbasis - 1) = rep4k(4 + neven_basis - 1 - u);
+  out.col(nbasis - 2) = rep3k(4 + neven_basis - 1 - u);
+  out.col(nbasis - 3) = rep2k(4 + neven_basis - 1 - u);
+  for(int i=0; i < neven_basis; i++){
+    out.col(3 + i) = evenk(u - i);
+  }
+  return out;
+}
+

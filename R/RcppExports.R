@@ -29,3 +29,7 @@
     .Call('_ztools_update_gp_var', PACKAGE = 'ztools', R11, R12, R22)
 }
 
+.bs_even_C <- function(time, nk) {
+    .Call('_ztools_bs_even', PACKAGE = 'ztools', time, nk)
+}
+
